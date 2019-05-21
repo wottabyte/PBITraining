@@ -1,0 +1,35 @@
+DIAH
+C:\Users\david\Desktop\PBI Training\1.1\DIAH-201803-March
+Sales
+Sales = SUM(Sales[Revenue])
+
+Sales by Segment EXTREME
+Sales Extreme = CALCULATE([Sales], 'Product'[Segment] = "Extreme")
+Shows Extreme in every row
+Also show as this trully filters the report ot show only Extreme
+Sales ONLY Extreme = CALCULATE([Sales], filter('Product','Product'[Segment] = "Extreme"))
+
+All Sales
+Sales All = CALCULATE([Sales], ALL('Product'[Segment]))
+
+Sales %
+Sales % = DIVIDE([sales], [Sales All])
+
+
+Sales YTD= TOTALYTD(SUM('Sales'[Revenue]),'Date'[Date])
+
+Sales LY YTD = CALCULATE ([Sales YTD], SAMEPERIODLASTYEAR ('Date'[Date]))
+
+Sales Var = [Sales YTD] - [Sales LY YTD]
+
+IsVanArsdel = IF([Manufacturer]="VanArsdel", "Y", "N")
+
+
+30 day running total = calulate ( [Total Sales],
+Filter (All (Dates Table), Dates[date] > MAx(Dates[date] - 30 &&
+Dates[date] <= MAx( Dates[date])))
+
+
+see more in DAX book.
+
+Sales YTD with pure DAX
