@@ -1,0 +1,48 @@
+DAX helper
+
+Building on the Executive Summary Financial Report
+
+
+
+Add 2 dimensions
+Segment.csv
+Tiers.csv
+==============================
+
+Add extra Calculated Columns to the Calendar dimension.
+
+Demo CC  : Add to date table from lesson 1
+DAX: Year ('Calendar'[Date])
+DAX: Month Number = month('Calendar'[Date])
+DAX:FY = "FY" & YEAR('Calendar'[Date])
+DAX:mmyyy = FORMAT('Calendar'[Date],"mmm") & "'" & RIGHT(YEAR('Calendar'[Date]),2)
+
+Datamodel fix month order by adding month number
+Fix mmmyy order by adding
+yyyymm = 'Calendar'[year]*100 + 'Calendar'[month number]
+
+
+
+===========================================
+
+Total Sales = SUM(financials[Sales])
+Sales France = CALCULATE([Total Sales],financials[Country]="France")
+Show on a 1st table report with Country on Rows 
+
+Sales All = CALCULATE([Total Sales], ALL(financials))
+Sales % = DIVIDE([Total Sales],[Sales All])
+Add to 1st table report
+
+Create 2nd table report with Segment on Rows to demo how measures change on row/filter context 
+
+Create 3rd with Directors on rows.
+
+
+
+TIme Intelligence
+Sales SPLY = CALCULATE([Total Sales], SAMEPERIODLASTYEAR('Calendar'[Date]))
+Sales TotalYTD = TOTALYTD([Total Sales],'Calendar'[Date])
+Sales YTD = CALCULATE([Total Sales], DATESYTD('Calendar'[Date]))
+Sales QTD = CALCULATE([Total Sales], DATESQTD('Calendar'[Date]))
+
+Show all above on a table report with Year Month on Rows
